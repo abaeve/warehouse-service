@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package abaeve.industry;
+
+service WarehouseQuery {
+
+}
+
+service WarehouseMaintenance {
+    rpc MoveItem (WarehouseAdminRequest) returns (WarehouseAdminResponse) {
+    };
+}
+
+message WarehouseAdminRequest {
+
+}
+
+message WarehouseAdminResponse {
+
+}
