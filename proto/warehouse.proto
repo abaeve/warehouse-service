@@ -19,7 +19,14 @@ message WarehouseByEntityRequest {
 }
 
 message Warehouse {
+    int64 WarehouseId = 1;
+    repeated Item Items = 2;
+}
 
+message Item {
+    int32 TypeId = 1;
+    float Price = 2;
+    int64 Quantity = 3;
 }
 
 message WarehouseMoveItemRequest {
