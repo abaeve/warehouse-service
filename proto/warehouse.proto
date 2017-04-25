@@ -5,12 +5,20 @@ import "github.com/abaeve/services-common/proto/common.proto";
 package abaeve.industry;
 
 service WarehouseQuery {
-    rpc GetWarehouse (WarehouseByEntityRequest) returns (Warehouse) {
+    rpc GetWarehouse (WarehouseByEntityRequest) returns (WarehouseResponse) {
+    };
+    rpc FindWarehousesForEntity(WarehouseByEntityRequest) returns (WarehouseIdsResponse) {
+    };
+    rpc FindByWarehouseIdAndTypeId(WarehouseByIdAndTypeId) returns (Item) {
     };
 }
 
 service WarehouseMaintenance {
-    rpc MoveItem (WarehouseMoveItemRequest) returns (WarehouseMoveItemResponse) {
+    rpc MoveItem(WarehouseMoveItemRequest) returns (WarehouseMoveItemResponse) {
+    };
+    rpc ItemsConsumed(WarehouseItemModificationRequest) returns (abaeve.common.ServiceResponseDetail) {
+    };
+    rpc ItemsPurchased(WarehouseItemModificationRequest) returns (abaeve.common.ServiceResponseDetail) {
     };
 }
 
@@ -20,13 +28,24 @@ message WarehouseByEntityRequest {
 
 message Warehouse {
     int64 WarehouseId = 1;
-    repeated Item Items = 2;
+    string WarehouseName = 2;
+    repeated Item Items = 3;
 }
 
 message Item {
     int32 TypeId = 1;
     float Price = 2;
     int64 Quantity = 3;
+}
+
+message WarehouseIdsResponse {
+    repeated int64 WarehouseIds = 1;
+    repeated int64 WarehouseNames = 2;
+}
+
+message WarehouseByIdAndTypeId {
+    int64 WarehouseId = 1;
+    int32 TypeId = 2;
 }
 
 message WarehouseMoveItemRequest {
@@ -38,4 +57,11 @@ message WarehouseMoveItemRequest {
 
 message WarehouseMoveItemResponse {
     abaeve.common.ServiceResponseDetail Response = 1;
+}
+
+message WarehouseItemModificationRequest {
+    int64 WarehouseId = 1;
+    repeated int32 ItemId = 2;
+    repeated int64 Quantity = 3;
+    repeated float Price = 4;
 }
