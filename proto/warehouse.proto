@@ -26,7 +26,7 @@ message WarehouseByEntityRequest {
     int64 EntityId = 1;
 }
 
-message Warehouse {
+message WarehouseResponse {
     int64 WarehouseId = 1;
     string WarehouseName = 2;
     repeated Item Items = 3;
