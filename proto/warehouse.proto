@@ -4,6 +4,13 @@ import "github.com/abaeve/services-common/proto/common.proto";
 
 package abaeve.industry;
 
+enum ItemState {
+    BUILDING = 0;
+    STORED = 1;
+    SHIPPING = 2;
+    LISTED = 3;
+}
+
 service WarehouseQuery {
     rpc GetWarehouse (WarehouseByEntityRequest) returns (WarehouseResponse) {
     };
@@ -30,12 +37,24 @@ message WarehouseResponse {
     int64 WarehouseId = 1;
     string WarehouseName = 2;
     repeated Item Items = 3;
+    repeated Blueprint Blueprints = 4;
 }
 
 message Item {
     int32 TypeId = 1;
     float Price = 2;
     int64 Quantity = 3;
+    ItemState State = 4;
+}
+
+message Blueprint {
+    int32 TypeId = 1;
+    bool Copy = 2;
+    uint32 MaterialEfficiency = 3;
+    uint32 TimeEfficiency = 4;
+    uint32 Runs = 5;
+    float Price = 6;
+    int64 Quantity = 7;
 }
 
 message WarehouseIdsResponse {
